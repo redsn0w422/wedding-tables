@@ -1,1 +1,51 @@
-hi world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wedding Tables</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto" style="padding-top: 5vh;">
+                <input type="text" class="form-control" id="name_input" placeholder="Full name here ...">
+                <div style="padding-top: 1vh;">
+                    <button type="button" class="btn btn-primary" onclick="submitFn()">Submit</button>
+                </div>
+                <div style="padding-top: 5vh;">
+                    <h3 id="result_h2"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="names.js"></script>
+    <script type="text/javascript" src="fuzzysort.js"></script>
+    <script>
+        function submitFn(e) {
+            let name = document.getElementById("name_input").value;
+            let resultField = document.getElementById("result_h2");
+            const results = fuzzysort.go(name, data, {key:'name'});
+            if (results.length > 0) {
+                let fname = results[0].obj["name"];
+                let table = results[0].obj["table"];
+                let msg = "Table for " + fname + " is " + table + ".";
+                resultField.innerHTML = msg;
+            } else {
+                resultField.innerHTML = "No matches found, try again.";
+            }
+        }
+
+        let input = document.getElementById("name_input");
+        input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            submitFn();
+        }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
