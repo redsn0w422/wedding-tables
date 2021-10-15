@@ -1,10 +1,10 @@
 let data = [
     {
-        "name" : "yasha mostofi",
+        "name" : "Yasha Mostofi",
         "table" : 5
     },
     {
-        "name" : "marina yu",
+        "name" : "Marina Yu",
         "table" : 3
     }
 ]
