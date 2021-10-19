@@ -33,15 +33,15 @@
     <script>
         function submitFn(e) {
             let name = document.getElementById("name_input").value;
+            let query = name.toLowerCase().replace(/\s+/g, ''); // no whitespace at all
             let resultField = document.getElementById("result_h2");
-            const results = fuzzysort.go(name, data, {key:'name'});
+            const results = fuzzysort.go(query, data, {key:'name'});
             console.log(results);
             var result = null;
             if (results.length == 1) {
                 result = results[0];
             } else if (results.length > 1) {
-                let matched = results[0].obj["name"].toLowerCase();
-                let query = name.toLowerCase();
+                let matched = results[0].obj["name"].toLowerCase().replace(/\s+/g, '');
                 if (matched === query) {
                     result = results[0];
                 } else {
