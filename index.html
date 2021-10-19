@@ -36,16 +36,27 @@
             let resultField = document.getElementById("result_h2");
             const results = fuzzysort.go(name, data, {key:'name'});
             console.log(results);
+            var result = null;
             if (results.length == 1) {
-                let fname = results[0].obj["name"];
-                let table = results[0].obj["table"];
-                let msg = "Table for " + fname + " is " + table + ".";
-                resultField.innerHTML = msg;
+                result = results[0];
             } else if (results.length > 1) {
-                resultField.innerHTML = "Multiple matches found, please be more specific!"
+                let matched = results[0].obj["name"].toLowerCase();
+                let query = name.toLowerCase();
+                if (matched === query) {
+                    result = results[0];
+                } else {
+                    resultField.innerHTML = "Multiple matches found, please be more specific!";
+                    return;
+                }
             } else {
                 resultField.innerHTML = "No matches found, try again.";
+                return;
             }
+
+            let fname = result.obj["name"];
+            let table = result.obj["table"];
+            let msg = "Table for " + fname + " is " + table + ".";
+            resultField.innerHTML = msg;
         }
 
         let input = document.getElementById("name_input");
