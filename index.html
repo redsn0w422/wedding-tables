@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-6 mx-auto" style="padding-top: 5vh;">
                 <div style="padding-top: 5vh;">
-                    <h3 id="result_h2">Please type in your first and last name and hit submit to get your table number!</h3>
+                    <h3>Please type in your first and last name and hit submit to get your table number!</h3>
                 </div>
             </div>
         </div>
@@ -35,11 +35,14 @@
             let name = document.getElementById("name_input").value;
             let resultField = document.getElementById("result_h2");
             const results = fuzzysort.go(name, data, {key:'name'});
-            if (results.length > 0) {
+            console.log(results);
+            if (results.length == 1) {
                 let fname = results[0].obj["name"];
                 let table = results[0].obj["table"];
                 let msg = "Table for " + fname + " is " + table + ".";
                 resultField.innerHTML = msg;
+            } else if (results.length > 1) {
+                resultField.innerHTML = "Multiple matches found, please be more specific!"
             } else {
                 resultField.innerHTML = "No matches found, try again.";
             }
